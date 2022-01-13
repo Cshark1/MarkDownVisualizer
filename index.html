@@ -1,0 +1,53 @@
+<html>
+    <head>
+        <title>Markdown Visualiser</title>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+    <div class="container">
+        <div class="left">
+            <textarea class="code"># Markdown Visualizer
+## A true MVP!
+### Features
+- Horrible design
+- "Hacker" theme
+- Kinda close to what GitHub markdown should look like
+- Save button
+
+### Credits
+- adamvleggett(sorry, links are not implemented) for making the hard part.
+            </textarea>
+            <div class="left-save-btn center"><img src="img/diskette.png" style="width: 30px; height: 30px"></div>
+        </div>
+        <div class="result">
+
+        </div>
+        <script type="text/javascript" src="js/drawdown.js"></script>
+        <script type="text/javascript">
+            var code_area = document.querySelector(".code");
+            var result = document.querySelector(".result");
+            function update() {
+                result.innerHTML = markdown(code_area.value);
+            }
+            code_area.addEventListener("input", update);
+            update();
+        </script>
+        <script>
+            function download() {
+                var filename = "result.html";
+                var element = document.createElement('a');
+                element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(markdown(document.querySelector(".code").value)));
+                element.setAttribute('download', filename);
+
+                element.style.display = 'none';
+                document.body.appendChild(element);
+
+                element.click();
+
+                document.body.removeChild(element);
+            }
+            document.querySelector(".left-save-btn").addEventListener("click", download)
+        </script>
+    </div>
+    </body>
+</html>
